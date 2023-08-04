@@ -11,34 +11,34 @@
       </div>
     </div>
     <div class="column scrollHeight customScrollBar">
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
-      <ShiftCard />
+      <template v-if="(shifts || []).length > 0">
+        <ShiftCard v-for="shift in shifts" :key="shift.id" :shift="shift" />
+      </template>
+      <template v-else>
+        <div class="columns">
+          <div
+            class="column mb-3 is-flex is-justify-content-space-around has-text-danger"
+          >
+            No Shifts Added
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ShiftCard from '~/components/ShiftCard.vue'
 export default {
   name: 'ShiftsSections',
   components: {
     ShiftCard,
+  },
+  computed: {
+    ...mapGetters({
+      shifts: 'getShifts',
+    }),
   },
   methods: {
     openSideBar() {

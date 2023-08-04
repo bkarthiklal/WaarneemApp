@@ -75,23 +75,27 @@
 
 <script>
 import ShiftDataCard from './ShiftDataCard.vue'
+
+function initialState() {
+  return {
+    title: '',
+    description: '',
+    dates: [],
+    shiftsDates: {},
+    errorStates: {
+      title: false,
+      description: false,
+      dates: false,
+    },
+  }
+}
 export default {
   name: 'ShiftForm',
   components: {
     ShiftDataCard,
   },
-  data() {
-    return {
-      title: '',
-      description: '',
-      dates: [],
-      shiftsDates: {},
-      errorStates: {
-        title: false,
-        description: false,
-        dates: false,
-      },
-    }
+  data: function () {
+    return initialState()
   },
   methods: {
     dateModifier(dates) {
@@ -144,13 +148,19 @@ export default {
     saveData() {
       const isValid = this.validate()
       console.log('🚀 ~ file: index.vue:135 ~ saveData ~ isValid:', isValid)
+      if (!isValid) return
+
       const data = {
         title: this.title,
         description: this.description,
         shifts: this.shiftsDates,
         dates: this.dates,
+        id: new Date().getTime(),
       }
-      console.log(data)
+
+      this.$store.dispatch('addShift', data)
+      this.$store.dispatch('setSideBarStatus', false)
+      Object.assign(this.$data, initialState())
     },
     validate() {
       let formValidated = true

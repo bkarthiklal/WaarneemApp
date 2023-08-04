@@ -17,7 +17,7 @@
               </div>
             </div>
             <!-- list block  -->
-            <template v-for="(shiftInfo, ix) in shift.shifts">
+            <template v-for="(shiftInfo, ix) in shiftList">
               <div class="columns px-4 pb-2" :key="`${shift.id}_${ix}`">
                 <div class="column">
                   <div class="columns is-vcentered bg-black">
@@ -87,6 +87,27 @@ export default {
           ],
         }
       },
+    },
+  },
+  computed: {
+    shiftList() {
+      return Object.values(this.shift.shifts).map((shift) => {
+        function startTime(startTime) {
+          const hours = new Date(startTime).getHours()
+          const minutes = new Date(startTime).getMinutes()
+          return `${hours}:${minutes}`
+        }
+        function endTime(endTime) {
+          const hours = new Date(endTime).getHours()
+          const minutes = new Date(endTime).getMinutes()
+          return `${hours}:${minutes}`
+        }
+        return {
+          ...shift,
+          startTime: startTime(shift.startTime),
+          endTime: endTime(shift.endTime),
+        }
+      })
     },
   },
   methods: {
