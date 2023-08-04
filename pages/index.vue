@@ -1,23 +1,27 @@
 <template>
-  <section class="section pb-1" :class="open ? 'sidebar-open' : ''">
+  <section class="section pb-1" :class="isSideBarOpen ? 'sidebar-open' : ''">
     <FilterBlock></FilterBlock>
-    <SideBar v-model="open"></SideBar>
+    <ShiftsBlock></ShiftsBlock>
+    <SideBar></SideBar>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SideBar from '@/components/SideBar.vue'
 import FilterBlock from '@/components/pageComponents/index/FilterBlock.vue'
+import ShiftsBlock from '~/components/pageComponents/index/ShiftsBlock.vue'
 export default {
   name: 'IndexPage',
   components: {
     SideBar,
-    FilterSection,
+    FilterBlock,
+    ShiftsBlock,
   },
-  data() {
-    return {
-      open: false,
-    }
+  computed: {
+    ...mapGetters({
+      isSideBarOpen: 'sideBarStatus',
+    }),
   },
 }
 </script>
