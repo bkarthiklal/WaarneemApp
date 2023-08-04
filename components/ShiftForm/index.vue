@@ -40,6 +40,7 @@
       </b-field>
       <template v-for="date in Object.keys(shiftsDates)">
         <ShiftDataCard
+          ref="ShiftDataCard"
           :key="date"
           v-model="shiftsDates[date]"
           @delete="removeDate"
@@ -56,7 +57,9 @@
           >
         </div>
         <div class="column is-flex is-justify-content-space-around">
-          <b-button style="min-width: 145px" class="is-dark">Save</b-button>
+          <b-button style="min-width: 145px" class="is-dark" @click="saveData"
+            >Save</b-button
+          >
         </div>
       </div>
     </section>
@@ -126,6 +129,20 @@ export default {
         })
         .filter(Boolean)
       this.dates = dateArray
+    },
+    saveData() {
+      const isValid = this.validate()
+      console.log('🚀 ~ file: index.vue:135 ~ saveData ~ isValid:', isValid)
+      const data = {
+        title: this.title,
+        description: this.description,
+        shifts: this.shiftsDates,
+        dates: this.dates,
+      }
+      console.log(data)
+    },
+    validate() {
+      return this.$refs.ShiftDataCard.every((card) => card.validate())
     },
   },
 }

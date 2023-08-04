@@ -76,6 +76,13 @@
           </b-field>
         </div>
       </div>
+      <div class="columns" v-if="hasErrorMessage">
+        <div
+          class="column mb-3 is-flex is-justify-content-space-around has-text-danger"
+        >
+          All fields are mandatory
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -101,6 +108,7 @@ export default {
       },
       minutesGranularity: 15,
       hoursGranularity: 1,
+      hasErrorMessage: false,
     }
   },
   watch: {
@@ -122,6 +130,26 @@ export default {
   methods: {
     deleteShift() {
       this.$emit('delete', this.shiftData.date)
+    },
+    validate() {
+      const isValid = Object.keys(this.shiftData).every((key) => {
+        if (this.shiftData[key] === '') {
+          this.$buefy.toast.open({
+            message: `Please fill in all fields`,
+            type: 'is-danger',
+            position: 'is-top',
+            duration: 5000,
+          })
+          return false
+        }
+        return true
+      })
+      if (!isValid) {
+        this.hasErrorMessage = true
+      } else {
+        this.hasErrorMessage = false
+      }
+      return isValid
     },
   },
 }
