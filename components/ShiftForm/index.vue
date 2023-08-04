@@ -7,14 +7,17 @@
 
     <!-- Content -->
     <section class="section">
-      <b-field label="Title">
+      <b-field
+        label="Title"
+        :type="errorStates.title ? 'is-danger' : ''"
+        :message="errorStates.title ? 'Title is required' : ''"
+      >
         <b-input
           v-model="title"
           type="text"
           placeholder="Enter title (max 100 characters)"
           maxlength="100"
           required
-          validation-message="Title is required"
         ></b-input>
         <b-icon icon="calendar" size="is-small" slot="icon"></b-icon>
       </b-field>
@@ -28,7 +31,11 @@
         ></b-input>
       </b-field>
 
-      <b-field label="Dates">
+      <b-field
+        label="Dates"
+        :type="errorStates.dates ? 'is-danger' : ''"
+        :message="errorStates.dates ? 'Date(s) is required' : ''"
+      >
         <b-datepicker
           placeholder="Click to select..."
           v-model="dates"
@@ -79,9 +86,13 @@ export default {
       description: '',
       dates: [],
       shiftsDates: {},
+      errorStates: {
+        title: false,
+        description: false,
+        dates: false,
+      },
     }
   },
-  watch: {},
   methods: {
     dateModifier(dates) {
       const dateArray = dates.map((date) => this.dateFormatter(date))
@@ -142,7 +153,24 @@ export default {
       console.log(data)
     },
     validate() {
-      return this.$refs.ShiftDataCard.every((card) => card.validate())
+      let formValidated = true
+      let DetailCardValidated = false
+      if (!this.title) {
+        this.errorStates.title = true
+        formValidated = false
+      } else {
+        this.errorStates.title = false
+      }
+      if (this.dates.length > 0) {
+        this.errorStates.dates = false
+        DetailCardValidated = this.$refs.ShiftDataCard.every((card) =>
+          card.validate()
+        )
+      } else {
+        this.errorStates.dates = true
+        formValidated = false
+      }
+      return formValidated && DetailCardValidated
     },
   },
 }
