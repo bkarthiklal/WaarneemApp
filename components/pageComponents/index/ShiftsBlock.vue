@@ -10,12 +10,19 @@
         >
       </div>
     </div>
+    <div class="column">
+      <ShiftCard />
+    </div>
   </div>
 </template>
 
 <script>
+import ShiftCard from '~/components/ShiftCard.vue'
 export default {
   name: 'ShiftsSections',
+  components: {
+    ShiftCard,
+  },
   methods: {
     openSideBar() {
       this.$store.dispatch('setSideBarStatus', true)
@@ -23,3 +30,4 @@ export default {
   },
 }
 </script>
+
