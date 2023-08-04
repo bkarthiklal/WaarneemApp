@@ -1,13 +1,13 @@
 <template>
   <section class="section pb-1" :class="open ? 'sidebar-open' : ''">
-    <FilterSection></FilterSection>
+    <FilterBlock></FilterBlock>
     <SideBar v-model="open"></SideBar>
   </section>
 </template>
 
 <script>
 import SideBar from '@/components/SideBar.vue'
-import FilterSection from '@/components/pageComponents/index/FilterSection.vue'
+import FilterBlock from '@/components/pageComponents/index/FilterBlock.vue'
 export default {
   name: 'IndexPage',
   components: {
