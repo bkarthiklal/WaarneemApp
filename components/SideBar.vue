@@ -62,25 +62,25 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'SideBar',
-  props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
-  },
   data() {
     return {
       open: false,
     }
   },
+  computed: {
+    ...mapGetters({
+      isSideBarOpen: 'sideBarStatus',
+    }),
+  },
   watch: {
-    value(val) {
+    isSideBarOpen(val) {
       this.open = val
     },
     open(val) {
-      this.$emit('input', val)
+      this.$store.dispatch('setSideBarStatus', val)
     },
   },
 }
