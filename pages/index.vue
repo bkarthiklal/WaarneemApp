@@ -27,6 +27,9 @@ export default {
 </script>
 
 <style lang="scss">
+html {
+  overflow: hidden;
+}
 .sidebar-open {
   transition: margin-left 0.6s;
   position: relative;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shift-card mb-2">
     <!-- Shift Card  -->
     <div class="columns pb-4 pr-4">
       <div class="column box">

@@ -10,7 +10,24 @@
         >
       </div>
     </div>
-    <div class="column">
+    <div class="column scrollHeight customScrollBar">
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
+      <ShiftCard />
       <ShiftCard />
     </div>
   </div>
@@ -31,3 +48,31 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.scrollHeight {
+  max-height: 73vh;
+}
+.customScrollBar {
+  width: 100%;
+  height: auto;
+  float: left;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
+}
+</style>
